@@ -1,0 +1,27 @@
+.itemBox { 
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: repeat(auto);
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px;
+    
+
+}
+img {
+    width: 300px;
+    height: 200px;
+}
+.quantity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+;
+}

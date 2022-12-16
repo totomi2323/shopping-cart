@@ -1,0 +1,13 @@
+nav {
+    background-color: grey;
+    padding: 15px;
+    box-shadow: 2px 2px;
+}
+ul {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+li {
+    list-style: none;
+}
