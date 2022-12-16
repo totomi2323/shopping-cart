@@ -4,11 +4,21 @@ import React, { useState } from "react";
 import uniqid from "uniqid";
 import Home from "./modules/Home";
 import ShoppingPage from "./modules/Shop/ShoppingPage";
-import Checkout from "./modules/Chceckout";
+import Checkout from "./modules/Checkout";
 import NavBar from "./modules/Navbar";
+import testPics from "./test.jpg";
 
 function App() {
   const [itemQuantity, setItemQuantity] = useState(0);
+  const [checkOutItems, setCheckOutItems] = useState({
+    test1: {
+      url: testPics,
+      price: 10,
+      name: "Test item 1",
+      id: uniqid(),
+      quantity: 0,
+    },
+  });
 
   return (
     <div className="App">
@@ -22,6 +32,8 @@ function App() {
               <ShoppingPage
                 itemQuantity={itemQuantity}
                 setItemQuantity={setItemQuantity}
+                checkOutItems={checkOutItems}
+                setCheckOutItems={setCheckOutItems}
               />
             }
           />
@@ -31,6 +43,8 @@ function App() {
               <Checkout
                 itemQuantity={itemQuantity}
                 setItemQuantity={setItemQuantity}
+                checkOutItems={checkOutItems}
+                setCheckOutItems={setCheckOutItems}
               />
             }
           />
