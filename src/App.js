@@ -11,13 +11,6 @@ import testPics from "./test.jpg";
 function App() {
   const [itemQuantity, setItemQuantity] = useState(0);
   const [checkOutItems, setCheckOutItems] = useState({
-    test1: {
-      url: testPics,
-      price: 10,
-      name: "Test item 1",
-      id: uniqid(),
-      quantity: 0,
-    },
   });
 
   return (

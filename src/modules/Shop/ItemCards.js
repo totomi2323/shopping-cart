@@ -4,6 +4,7 @@ import testPics from "../../test.jpg";
 import "../../style/itemCard-style.css";
 
 const ItemCards = (props) => {
+  const { checkOutItems, setCheckOutItems } = props;
   const [cards, setCards] = useState({
     test1:
     {
@@ -46,6 +47,10 @@ const addItem = (e) => {
             console.log(newItem)
             props.setItemQuantity(props.itemQuantity+1)
 
+            setCheckOutItems((prevState) => ({
+              ...prevState,
+              [item]: newItem
+            }));
             setCards((prevState)=> ({
                 ...prevState,
                 [item]: newItem,

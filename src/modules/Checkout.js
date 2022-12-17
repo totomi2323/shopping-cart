@@ -5,16 +5,17 @@ import "../style/itemCard-style.css";
 const Checkout = (props) => {
   const [cards, setCards] = useState({});
 
+  const { checkOutItems, setCheckOutItems } = props;
+
   const incrementItem = (e) => {
     let newItem;
     let index = e.target.parentNode.getAttribute("index");
-    for (let item in cards) {
-      if (index === cards[item].id) {
-        newItem = cards[item];
+    for (let item in checkOutItems) {
+      if (index === checkOutItems[item].id) {
+        newItem = checkOutItems[item];
         newItem.quantity += 1;
         props.setItemQuantity(props.itemQuantity + 1);
-
-        setCards((prevState) => ({
+        setCheckOutItems((prevState) => ({
           ...prevState,
           [item]: newItem,
         }));
@@ -26,13 +27,13 @@ const Checkout = (props) => {
   const decreaseItem = (e) => {
     let newItem;
     let index = e.target.parentNode.getAttribute("index");
-    for (let item in cards) {
-      if (index === cards[item].id) {
-        newItem = cards[item];
+    for (let item in checkOutItems) {
+      if (index === checkOutItems[item].id) {
+        newItem = checkOutItems[item];
         newItem.quantity -= 1;
         console.log(newItem);
         props.setItemQuantity(props.itemQuantity - 1);
-        setCards((prevState) => ({
+        setCheckOutItems((prevState) => ({
           ...prevState,
           [item]: newItem,
         }));
@@ -40,27 +41,29 @@ const Checkout = (props) => {
       console.log(cards);
     }
   };
-  const { checkOutItems, setCheckOutItems } = props;
+
   return (
     <div>
       <h1>Checkout</h1>
       <div className="itemBox">
-      {Object.keys(checkOutItems).map((item) => {
-        console.log(checkOutItems[item]);
-        return(
-        <div className="card" key={checkOutItems[item].id}>
-          <img src={checkOutItems[item].url}></img>
-          <div>
-            <p>{checkOutItems[item].name}</p>
-            <p>Price: £{checkOutItems[item].price}</p>
-          </div>
-          <div className="quantity" index={checkOutItems[item].id}>
-            <button onClick={incrementItem}>+</button>
-            <button onClick={decreaseItem}>-</button>
-          </div>
-        </div>);
-      })}
-       </div>
+        {Object.keys(checkOutItems).map((item) => {
+          console.log(checkOutItems[item]);
+          return (
+            <div className="card" key={checkOutItems[item].id}>
+              <img src={checkOutItems[item].url}></img>
+              <div>
+                <p>{checkOutItems[item].name}</p>
+                <p>Price: £{checkOutItems[item].price}</p>
+              </div>
+              <div className="quantity" index={checkOutItems[item].id}>
+                <p>Quantity: {checkOutItems[item].quantity}</p>
+                <button onClick={incrementItem}>+</button>
+                <button onClick={decreaseItem}>-</button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
