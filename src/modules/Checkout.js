@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import uniqid from "uniqid";
 import "../style/itemCard-style.css";
 
 const Checkout = (props) => {
-  const [cards, setCards] = useState({});
-
   const { checkOutItems, setCheckOutItems } = props;
 
   const incrementItem = (e) => {
@@ -14,13 +11,11 @@ const Checkout = (props) => {
       if (index === checkOutItems[item].id) {
         newItem = checkOutItems[item];
         newItem.quantity += 1;
-        props.setItemQuantity(props.itemQuantity + 1);
         setCheckOutItems((prevState) => ({
           ...prevState,
           [item]: newItem,
         }));
       }
-      console.log(cards);
     }
   };
 
@@ -31,14 +26,14 @@ const Checkout = (props) => {
       if (index === checkOutItems[item].id) {
         newItem = checkOutItems[item];
         newItem.quantity -= 1;
-        console.log(newItem);
-        props.setItemQuantity(props.itemQuantity - 1);
-        setCheckOutItems((prevState) => ({
-          ...prevState,
-          [item]: newItem,
-        }));
+        
+      
+          setCheckOutItems((prevState) => ({
+            ...prevState,
+            [item]: newItem,
+          }));
+        
       }
-      console.log(cards);
     }
   };
 
@@ -47,10 +42,13 @@ const Checkout = (props) => {
       <h1>Checkout</h1>
       <div className="itemBox">
         {Object.keys(checkOutItems).map((item) => {
-          console.log(checkOutItems[item]);
+          if (checkOutItems[item].quantity >= 1) {
           return (
             <div className="card" key={checkOutItems[item].id}>
-              <img src={checkOutItems[item].url}></img>
+              <img
+                src={checkOutItems[item].url}
+                alt={checkOutItems[item].name}
+              ></img>
               <div>
                 <p>{checkOutItems[item].name}</p>
                 <p>Price: £{checkOutItems[item].price}</p>
@@ -62,7 +60,7 @@ const Checkout = (props) => {
               </div>
             </div>
           );
-        })}
+}})}
       </div>
     </div>
   );

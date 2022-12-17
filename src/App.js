@@ -1,17 +1,23 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useState } from "react";
-import uniqid from "uniqid";
+import React, { useEffect, useState } from "react";
 import Home from "./modules/Home";
 import ShoppingPage from "./modules/Shop/ShoppingPage";
 import Checkout from "./modules/Checkout";
 import NavBar from "./modules/Navbar";
-import testPics from "./test.jpg";
 
 function App() {
   const [itemQuantity, setItemQuantity] = useState(0);
-  const [checkOutItems, setCheckOutItems] = useState({
-  });
+  const [checkOutItems, setCheckOutItems] = useState({});
+
+  useEffect(() => {
+    let counter = 0;
+    for (let item in checkOutItems) {
+      counter += checkOutItems[item].quantity;
+    }
+    setItemQuantity(counter);
+  }, [checkOutItems]);
+
 
   return (
     <div className="App">

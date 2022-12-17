@@ -3,7 +3,6 @@ import uniqid from "uniqid";
 import ItemCards from "./ItemCards";
 
 const ShoppingPage = (props) => {
-  console.log(props.itemQuantity);
   return (
     <div>
       <h1>Shopping Page</h1>
