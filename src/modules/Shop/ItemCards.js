@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import uniqid from "uniqid";
 import testPics from "../../test.jpg";
 import "../../style/itemCard-style.css";
 
 const ItemCards = (props) => {
   const { checkOutItems, setCheckOutItems } = props;
+  const [shopItems, setShopItems] = useState([]);
   const [cards, setCards] = useState({
     test1: {
       url: testPics,
@@ -36,6 +37,29 @@ const ItemCards = (props) => {
     },
   });
 
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "{{authorization}}");
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
+  const fetchItems = async () => {
+    const data = await fetch(
+      "https://fortnite-api.theapinetwork.com/store/get",
+      requestOptions
+    );
+    const items = await data.json();
+    setShopItems(items.data);
+
+    console.log(shopItems);
+  };
+
   const addItem = (e) => {
     let newItem;
     let index = e.target.parentNode.getAttribute("index");
@@ -43,28 +67,27 @@ const ItemCards = (props) => {
       if (index === cards[item].id) {
         newItem = cards[item];
         newItem.quantity += 1;
-          if (checkOutItems[item]) {
-            setCheckOutItems((prevState) => ({
-              ...prevState,
-              [item]: {
-                url: checkOutItems[item].url,
-                price: checkOutItems[item].price,
-                name: checkOutItems[item].name,
-                id: checkOutItems[item].id,
-                quantity: checkOutItems[item].quantity + 1,
-              },
-            }));
-          } else {
-            setCheckOutItems((prevState) => ({
-              ...prevState,
-              [item]: newItem,
-            }));
-            setCards((prevState) => ({
-              ...prevState,
-              [item]: newItem,
-            }));
-          }
-        
+        if (checkOutItems[item]) {
+          setCheckOutItems((prevState) => ({
+            ...prevState,
+            [item]: {
+              url: checkOutItems[item].url,
+              price: checkOutItems[item].price,
+              name: checkOutItems[item].name,
+              id: checkOutItems[item].id,
+              quantity: checkOutItems[item].quantity + 1,
+            },
+          }));
+        } else {
+          setCheckOutItems((prevState) => ({
+            ...prevState,
+            [item]: newItem,
+          }));
+          setCards((prevState) => ({
+            ...prevState,
+            [item]: newItem,
+          }));
+        }
       }
     }
   };

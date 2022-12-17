@@ -29,8 +29,6 @@ function App() {
             path="/shop"
             element={
               <ShoppingPage
-                itemQuantity={itemQuantity}
-                setItemQuantity={setItemQuantity}
                 checkOutItems={checkOutItems}
                 setCheckOutItems={setCheckOutItems}
               />
@@ -40,8 +38,7 @@ function App() {
             path="/checkout"
             element={
               <Checkout
-                itemQuantity={itemQuantity}
-                setItemQuantity={setItemQuantity}
+                
                 checkOutItems={checkOutItems}
                 setCheckOutItems={setCheckOutItems}
               />
