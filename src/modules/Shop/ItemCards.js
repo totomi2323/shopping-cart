@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import uniqid from "uniqid";
 import testPics from "../../test.jpg";
 import "../../style/itemCard-style.css";
+import vbuck from "../../vbuck.png";
 
 const ItemCards = (props) => {
   const { checkOutItems, setCheckOutItems } = props;
@@ -56,36 +57,25 @@ const ItemCards = (props) => {
     );
     const items = await data.json();
     setShopItems(items.data);
-
-    console.log(shopItems);
+   
   };
 
   const addItem = (e) => {
-    let newItem;
+    let newItem = Object;
     let index = e.target.parentNode.getAttribute("index");
-    for (let item in cards) {
-      if (index === cards[item].id) {
-        newItem = cards[item];
-        newItem.quantity += 1;
+    for (let item in shopItems) {
+      if (index === shopItems[item].itemId) {
+        newItem = shopItems[item];
         if (checkOutItems[item]) {
+          let pieces = checkOutItems[item].quantity +1
           setCheckOutItems((prevState) => ({
             ...prevState,
-            [item]: {
-              url: checkOutItems[item].url,
-              price: checkOutItems[item].price,
-              name: checkOutItems[item].name,
-              id: checkOutItems[item].id,
-              quantity: checkOutItems[item].quantity + 1,
-            },
+            [item]: { ...newItem, quantity: pieces },
           }));
         } else {
           setCheckOutItems((prevState) => ({
             ...prevState,
-            [item]: newItem,
-          }));
-          setCards((prevState) => ({
-            ...prevState,
-            [item]: newItem,
+            [item]: {...newItem, quantity: 1}
           }));
         }
       }
@@ -94,15 +84,24 @@ const ItemCards = (props) => {
 
   return (
     <div className="itemBox">
-      {Object.keys(cards).map((card) => {
+      {Object.keys(shopItems).map((fortniteItem) => {
+        let imageUrl;
+        if (!shopItems[fortniteItem].item.images.featured) {
+          imageUrl = shopItems[fortniteItem].item.images.icon;
+        } else {
+          imageUrl = shopItems[fortniteItem].item.images.featured;
+        }
         return (
-          <div className="card" key={cards[card].id}>
-            <img src={cards[card].url} alt={cards[card].name}></img>
+          <div className="card" key={shopItems[fortniteItem].itemId}>
+            <img src={imageUrl} alt={shopItems[fortniteItem].item.name}></img>
             <div>
-              <p>{cards[card].name}</p>
-              <p>Price: £{cards[card].price}</p>
+              <p>{shopItems[fortniteItem].item.name}</p>
+              <p>
+                <img className="vbuck" src={vbuck}></img>
+                {shopItems[fortniteItem].store.cost}
+              </p>
             </div>
-            <div className="quantity" index={cards[card].id}>
+            <div className="quantity" index={shopItems[fortniteItem].itemId}>
               <button onClick={addItem}>Add</button>
             </div>
           </div>
