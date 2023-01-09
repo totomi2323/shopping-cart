@@ -11,7 +11,7 @@ const NavBar = (props) => {
     <nav>
       <ul aria-label="routes">
         <li>Item Shop</li>
-        <Link to="/">
+        <Link to="/home">
           <li>Home</li>
         </Link>
         <Link to="/shop">

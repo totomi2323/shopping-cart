@@ -29,7 +29,7 @@ function App() {
       <BrowserRouter>
         <NavBar itemQuantity={itemQuantity} />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route
             path="/shop"
             element={
