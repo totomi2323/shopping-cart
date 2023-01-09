@@ -10,7 +10,7 @@ const NavBar = (props) => {
   return (
     <nav>
       <ul aria-label="routes">
-        <li>Logo</li>
+        <li>Item Shop</li>
         <Link to="/">
           <li>Home</li>
         </Link>

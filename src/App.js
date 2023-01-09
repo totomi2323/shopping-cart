@@ -8,14 +8,19 @@ import NavBar from "./modules/Navbar";
 
 function App() {
   const [itemQuantity, setItemQuantity] = useState(0);
-  const [checkOutItems, setCheckOutItems] = useState({});
+  const [checkOutItems, setCheckOutItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState()
 
   useEffect(() => {
     let counter = 0;
+    let price = 0;
     for (let item in checkOutItems) {
       counter += checkOutItems[item].quantity;
+      price += (checkOutItems[item].quantity) * (checkOutItems[item].store.cost)
     }
+
     setItemQuantity(counter);
+    setTotalPrice(price)
   }, [checkOutItems]);
 
 
@@ -38,7 +43,7 @@ function App() {
             path="/checkout"
             element={
               <Checkout
-                
+                totalPrice={totalPrice}
                 checkOutItems={checkOutItems}
                 setCheckOutItems={setCheckOutItems}
               />

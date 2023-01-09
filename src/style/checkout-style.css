@@ -1,0 +1,15 @@
+footer {
+    background-color: lightblue ;
+    position: fixed;
+    left: 0;
+     bottom: 0;
+     width: 100%;
+     text-align: center;
+     padding: 10px;
+    
+}
+
+.checkOutCard {
+    width: fit-content;
+    height: fit-content;
+}

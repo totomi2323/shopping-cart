@@ -1,14 +1,15 @@
 import React from "react";
 import "../style/itemCard-style.css";
-import vbuck from "../vbuck.png"
+import "../style/checkout-style.css";
+import vbuck from "../vbuck.png";
 
 const Checkout = (props) => {
-  const { checkOutItems, setCheckOutItems } = props;
+  const { checkOutItems, setCheckOutItems, totalPrice } = props;
 
   const incrementItem = (e) => {
     let newItem;
     let index = e.target.parentNode.getAttribute("index");
-    console.log(index)
+    console.log(index);
     for (let item in checkOutItems) {
       if (index === checkOutItems[item].itemId) {
         newItem = checkOutItems[item];
@@ -51,7 +52,10 @@ const Checkout = (props) => {
         }));
       }
     }
-  }
+  };
+  const pay = () => {
+    alert("Thank you your payment have been succesfull");
+  };
 
   return (
     <div>
@@ -59,7 +63,6 @@ const Checkout = (props) => {
       <div className="itemBox">
         {Object.keys(checkOutItems).map((item) => {
           let imageUrl;
-          console.log(checkOutItems)
           if (!checkOutItems[item].item.images.featured) {
             imageUrl = checkOutItems[item].item.images.icon;
           } else {
@@ -67,26 +70,39 @@ const Checkout = (props) => {
           }
           if (checkOutItems[item].quantity >= 1) {
             return (
-              <div className="card" key={checkOutItems[item].itemId}>
-                <img
-                  src={imageUrl}
-                  alt={checkOutItems[item].item.name}
-                ></img>
+              <div
+                className="card checkOutCard"
+                key={checkOutItems[item].itemId}
+              >
+                <img src={imageUrl} alt={checkOutItems[item].item.name}></img>
                 <div>
                   <p>{checkOutItems[item].item.name}</p>
-                  <p><img className="vbuck" src={vbuck}></img>{checkOutItems[item].store.cost}</p>
+                  <p>
+                    <img className="vbuck" src={vbuck}></img>
+                    {checkOutItems[item].store.cost}
+                  </p>
                 </div>
-                <div className="quantity" index={checkOutItems[item].itemId}>
+                <div className="quantity" >
                   <p>Quantity: {checkOutItems[item].quantity}</p>
-                  <button onClick={incrementItem}>+</button>
-                  <button onClick={decreaseItem}>-</button>
-                  <button onClick={removeItem}> Remove </button>
+                  <div index={checkOutItems[item].itemId}>
+                    <button onClick={incrementItem}>+</button>
+                    <button onClick={decreaseItem}>-</button>
+                  </div>
+                  <button onClick={removeItem} className={"button-wrapper"} index={checkOutItems[item].itemId}>
+                    <p className="button-inner">Remove</p>
+                  </button>
                 </div>
               </div>
             );
           }
         })}
       </div>
+      <footer>
+        <div>
+          Total Price: <img className="vbuck" src={vbuck}></img> {totalPrice}
+        </div>
+        <button onClick={pay}>Pay</button>
+      </footer>
     </div>
   );
 };

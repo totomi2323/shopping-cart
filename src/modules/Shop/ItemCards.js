@@ -7,39 +7,9 @@ import vbuck from "../../vbuck.png";
 const ItemCards = (props) => {
   const { checkOutItems, setCheckOutItems } = props;
   const [shopItems, setShopItems] = useState([]);
-  const [cards, setCards] = useState({
-    test1: {
-      url: testPics,
-      price: 10,
-      name: "Test item 1",
-      id: uniqid(),
-      quantity: 0,
-    },
-    test2: {
-      url: testPics,
-      price: 10,
-      name: "Test item 2",
-      id: uniqid(),
-      quantity: 0,
-    },
-    test3: {
-      url: testPics,
-      price: 10,
-      name: "Test item 3",
-      id: uniqid(),
-      quantity: 0,
-    },
-    test4: {
-      url: testPics,
-      price: 10,
-      name: "Test item 4",
-      id: uniqid(),
-      quantity: 0,
-    },
-  });
 
   var myHeaders = new Headers();
-  myHeaders.append("Authorization", "{{authorization}}");
+  myHeaders.append("Authorization", "1206cd7f-0824-416a-9db4-32ccd636255c");
 
   var requestOptions = {
     method: "GET",
@@ -55,9 +25,9 @@ const ItemCards = (props) => {
       "https://fortnite-api.theapinetwork.com/store/get",
       requestOptions
     );
+
     const items = await data.json();
     setShopItems(items.data);
-   
   };
 
   const addItem = (e) => {
@@ -67,7 +37,7 @@ const ItemCards = (props) => {
       if (index === shopItems[item].itemId) {
         newItem = shopItems[item];
         if (checkOutItems[item]) {
-          let pieces = checkOutItems[item].quantity +1
+          let pieces = checkOutItems[item].quantity + 1;
           setCheckOutItems((prevState) => ({
             ...prevState,
             [item]: { ...newItem, quantity: pieces },
@@ -75,7 +45,7 @@ const ItemCards = (props) => {
         } else {
           setCheckOutItems((prevState) => ({
             ...prevState,
-            [item]: {...newItem, quantity: 1}
+            [item]: { ...newItem, quantity: 1 },
           }));
         }
       }
@@ -101,8 +71,14 @@ const ItemCards = (props) => {
                 {shopItems[fortniteItem].store.cost}
               </p>
             </div>
-            <div className="quantity" index={shopItems[fortniteItem].itemId}>
-              <button onClick={addItem}>Add</button>
+            <div className="quantity">
+              <button
+                className={"button-wrapper"}
+                onClick={addItem}
+                index={shopItems[fortniteItem].itemId}
+              >
+                <p className="button-inner">Add</p>
+              </button>
             </div>
           </div>
         );

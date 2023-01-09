@@ -1,7 +1,13 @@
 nav {
-    background-color: grey;
+    background-color: lightblue;
     padding: 15px;
     box-shadow: 2px 2px;
+    position: fixed;
+    left:0;
+    top:0;
+     width: 100%;
+     text-align: center;
+     padding: 10px;
 }
 ul {
     display: flex;
